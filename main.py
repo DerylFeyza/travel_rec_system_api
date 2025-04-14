@@ -1,10 +1,18 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 import pandas as pd
 import joblib
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Load the pickled model
 model = joblib.load("model/model.pkl")
 data = pd.read_csv("data/user_rating_detail.csv")
